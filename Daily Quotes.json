@@ -1,0 +1,108 @@
+{
+  "name": "Daily Quotes",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f89790c-3522-40c0-9c62-66e8a9122389",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://zenquotes.io/api/random",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "263330f9-52e2-493b-aed9-db44b68cc0e8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fromEmail": "parasoffice5@gamil.com",
+        "toEmail": "rishiraj.232963101@vcet.edu.in",
+        "subject": "Daily quote",
+        "emailFormat": "text",
+        "text": "=Quote of the Day:\n{{$json[\"q\"]}} — {{$json[\"a\"]}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "62d9f9a9-ca4e-47b2-a196-8e822d151bb6",
+      "name": "Send email",
+      "webhookId": "83c21bde-87b0-4fc0-89ed-f96c443b33b7",
+      "credentials": {
+        "smtp": {
+          "id": "PuL3Zuiz052gYtwr",
+          "name": "SMTP account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "533d49ac-ccd3-43e5-a4b9-13d874a7e082",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "858dfd89b4db267a3055223ecb2b8a885c7afb41839b852366e0152354664bd2"
+  },
+  "id": "KxH7dCTveYvnlPzr",
+  "tags": [
+    {
+      "createdAt": "2025-08-29T11:49:05.586Z",
+      "updatedAt": "2025-08-29T11:49:05.586Z",
+      "id": "DYUp13UdJmng8XR1",
+      "name": "Email Daily Quote"
+    }
+  ]
+}
